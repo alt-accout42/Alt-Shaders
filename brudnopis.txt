@@ -4,3 +4,32 @@ screen.EFFECT= sliders.INTENSITY
 INTENSITY=-2.0 -1.0 0.0 1.0 2.0
 
 
+
+//#ifndef EFFECT_SQUARED
+//    bool EFFECT_SQUARED = false;
+//#endif
+//#ifndef EFFECT_INTENSITY
+//    float EFFECT_INTENSITY = 0.0;
+//#endif
+
+
+void main() {
+    vec4 outputColorData = texture(gtexture, TexCoord);
+    vec3 almostOutputColor = outputColorData.rgb * foliageColor;
+    float transparency = outputColorData.a;
+    if (transparency < 0.1)
+    {
+        discard;
+    }
+    float colorBuffer = (almostOutputColor.r + almostOutputColor.g + almostOutputColor.b)/3;
+    vec3 averageColor = vec3(colorBuffer, colorBuffer, colorBuffer);
+    vec3 outputColor;
+
+    vec3 poweredAverageColor = averageColor;
+    for (int i = 0; i>(int(SQUARED)-2); i+=1) {
+        poweredAverageColor *= averageColor; // I had to use this instead of pow() because it showed me very vague error message at a very random place in the code and i had no idea how to fix it.
+    }
+
+    outputColor = almostOutputColor + INTENSITY * poweredAverageColor;
+    outColor0 = vec4(outputColor, transparency); //texture(gtexture, TexCoord);
+}

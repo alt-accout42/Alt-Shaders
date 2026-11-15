@@ -10,7 +10,6 @@ uniform mat4 modelViewMatrix;
 uniform mat4 projectionMatrix;
 uniform vec3 cameraPosition;
 uniform mat4 gbufferModelViewInverse;
-// uniform vec3 skyColor;
 
 out vec2 TexCoord;
 out vec3 foliageColor;
