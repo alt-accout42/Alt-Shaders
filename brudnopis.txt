@@ -1,0 +1,6 @@
+shaders.porperties
+
+screen.EFFECT= sliders.INTENSITY
+INTENSITY=-2.0 -1.0 0.0 1.0 2.0
+
+

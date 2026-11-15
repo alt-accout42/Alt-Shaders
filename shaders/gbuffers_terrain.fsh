@@ -1,12 +1,1 @@
-#version 460
-
-uniform sampler2D gtexture;
-
-/* DRAWBUFFERS:0 */
-layout(location = 0) out vec4 outColor0; 
-
-in vec2 TexCoord;
-
-void main() {
-    outColor0 = texture(gtexture, TexCoord);
-}
+#include "basic_frag.glsl"
