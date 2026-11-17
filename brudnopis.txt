@@ -33,3 +33,45 @@ void main() {
     outputColor = almostOutputColor + INTENSITY * poweredAverageColor;
     outColor0 = vec4(outputColor, transparency); //texture(gtexture, TexCoord);
 }
+
+
+
+
+
+basic: basic: ERROR: 0:62: 'ftransform' : no matching overloaded function found 
+ERROR: 0:62: 'assign' :  cannot convert from ' const float' to ' gl_Position 4-component vector of float Position'
+ERROR: 0:62: '' : compilation terminated 
+ERROR: 3 compilation errors.  No code generated.
+
+basic: basic: ERROR: 0:62: 'ftransform' : no matching overloaded function found 
+ERROR: 0:62: 'assign' :  cannot convert from ' const float' to ' gl_Position 4-component vector of float Position'
+ERROR: 0:62: '' : compilation terminated 
+ERROR: 3 compilation errors.  No code generated.
+
+basic: basic: ERROR: 0:62: 'ftransform' : no matching overloaded function found 
+ERROR: 0:62: 'assign' :  cannot convert from ' const float' to ' gl_Position 4-component vector of float Position'
+ERROR: 0:62: '' : compilation terminated 
+ERROR: 3 compilation errors.  No code generated.
+
+
+
+
+basic: basic: ERROR: 0:50: 'int' : must be qualified as flat in
+ERROR: 0:50: '' : compilation terminated 
+ERROR: 2 compilation errors.  No code generated.
+
+
+
+sodium_terrain_solid: sodium_terrain_solid: ERROR: 0:110: 'assign' :  cannot convert from ' temp 2-component vector of uint' to ' smooth out 2-component vector of int'
+ERROR: 0:110: '' : compilation terminated 
+ERROR: 2 compilation errors.  No code generated.
+
+
+
+
+
+basic: basic: Warning, (version, profile) forced to be (110, compatibility), while in source code it is (460, core)
+ERROR: #version: versions before 140 do not allow a profile token
+ERROR: 0:10: '' :  syntax error, unexpected IDENTIFIER
+ERROR: 2 compilation errors.  No code generated.
+
