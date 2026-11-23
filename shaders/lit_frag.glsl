@@ -81,7 +81,7 @@ void main() { // TODO: OPTIMIZE THIS SPAGETTI CODE
     
     vec4 outputColorData = texture(gtexture, TexCoord);
     outputColorData = vec4(pow((outputColorData.rgb + vec3(0.1)) / vec3(1.1), vec3(1+colDifrentness(outputColorData.rgb*0.5)+outputColorData.g)), outputColorData.a);
-    vec3 almostOutputColor = outputColorData.rgb * pow(foliageColor, vec3(1.2)) * ((screenBrightness * 2.0 + 1.0) * lightColor * (1-outputColorData.rgb*0.2+colDifrentness(lightColor))); //  + vec3(0.3*screenBrightness)) * ((screenBrightness+0.2)*0.2+0.12 - float(abs(moonPhase-4))*0.0005)
+    vec3 almostOutputColor = outputColorData.rgb * pow(foliageColor, vec3(1.2)) * ((screenBrightness * 0.6 + 1) * lightColor * (1-outputColorData.rgb*0.2+colDifrentness(lightColor))); //  + vec3(0.3*screenBrightness)) * ((screenBrightness+0.2)*0.2+0.12 - float(abs(moonPhase-4))*0.0005)
  
     // almostOutputColor *= (4-colBrightness(almostOutputColor))/3;
     float transparency = outputColorData.a;
