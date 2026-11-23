@@ -11,7 +11,6 @@
     float INTENSITY = 0.0;
 #]endif
 */
-
 /*
 #ifndef entityrender
     entityrender = 0.0;
@@ -26,6 +25,8 @@ uniform int worldDay;
 */
 uniform float screenBrightness;
 uniform int moonPhase;
+uniform mat4 gbufferModelViewInverse;
+uniform vec3 shadowLightPosition;
 
 /* DRAWBUFFERS:0 */
 layout(location = 0) out vec4 outColor0;
@@ -33,6 +34,8 @@ layout(location = 0) out vec4 outColor0;
 in vec2 TexCoord;
 in vec3 foliageColor;
 in vec2 lightMapCoords;
+in vec3 geoNormal;
+
 
 
 float averageCol(vec3 colVec3) {
@@ -40,11 +43,24 @@ float averageCol(vec3 colVec3) {
 }
 
 
+float colBrightness(vec3 colVec3) {
+    float minBuffer = min(colVec3.x, colVec3.y);
+    float minBuffer0 = min(minBuffer, colVec3.z);
+
+    return minBuffer0;
+}
+
+
 void main() {
-    vec3 lightColor = pow(texture(lightmap,lightMapCoords).rgb,vec3(5.0)); // make customizable?
-    vec4 outputColorData = pow(texture(gtexture, TexCoord), vec4(1.2));
-    vec3 almostOutputColor = outputColorData.rgb * foliageColor * ((screenBrightness * 3.0 + 1.0) * lightColor + vec3(0.1)) * ((screenBrightness+0.2)*0.2+0.12 - float(abs(moonPhase-4))*0.0005) ;
- 
+
+    vec3 shadowLightDirection = normalize(mat3(gbufferModelViewInverse) * shadowLightPosition);
+
+    vec3 worldGeoNormal = mat3(gbufferModelViewInverse) * geoNormal;
+
+    vec3 lightColor = pow(texture(lightmap,lightMapCoords).rgb,vec3(3.0)); // make customizable?
+    vec4 outputColorData = pow(texture(gtexture, TexCoord), vec4(1.6));
+    vec3 almostOutputColor = outputColorData.rgb * pow(foliageColor, vec3(1.5)) * ((screenBrightness * 3.0 + 1.0) * lightColor + vec3(screenBrightness)) * (screenBrightness*0.1+0.2);
+
     float transparency = outputColorData.a;
     if (transparency < 0.1)
     {
@@ -53,6 +69,11 @@ void main() {
  
     float averageColor = averageCol(almostOutputColor);
     vec3 averageColorVec3 = vec3(averageColor, averageColor, averageColor); //    SQUARED VALUE \/
+    
     vec3 outputColor = almostOutputColor + (screenBrightness-1)/3.0 * pow(averageColorVec3, vec3(2)); // ok i cant believe i didnt think of this. ive been trying to solve this for like half an hour and it turned out to be just putting vec3() to SQUARED. fgxfutryxfutdyfxydtfudzfxtrdyf
+    
+    // outputColor = vec3(colBrightness(outputColor)); // monochromatic
+    outputColor = (outputColor * vec3(pow(log(3 - colBrightness(outputColor)), 0.4)) * vec3(1.4)) + vec3(0.05);
+    
     outColor0 = vec4(outputColor, transparency); 
 }

@@ -6,6 +6,7 @@ in vec3 vaPosition;
 in vec2 vaUV0;
 in vec4 vaColor;
 in ivec2 vaUV2;
+in vec3 vaNormal;
 
 uniform vec3 chunkOffset;
 uniform mat4 modelViewMatrix;
@@ -15,17 +16,19 @@ uniform mat4 gbufferModelViewInverse;
 uniform vec4 entityColor;
 uniform int entityId;
 uniform int blockEntityId;
+uniform mat3 normalMatrix;
 
 out vec2 TexCoord;
 out vec3 foliageColor;
 out vec3 entityCol;
 out vec2 lightMapCoords;
+out vec3 geoNormal;
 
 
 void main() {
     TexCoord = vaUV0;
 
-    
+    geoNormal = normalMatrix * vaNormal;
 
     foliageColor = vaColor.rgb;
     // vec3 worldSpaceVertexPosition = cameraPosition + (gbufferModelViewInverse * modelViewMatrix * vec4(vaPosition+chunkOffset,1)).xyz;
